@@ -13,15 +13,6 @@
 	<button th:if="${session.auth} == null" onclick="location.href = '/testLogin';" class="submit-button">Login Profissionais</button>
 	<button th:if="${session.auth} != null" onclick="location.href = '/testPerfil';" id="logout">Meu Perfil</button>	
 	<button th:if="${session.auth} != null" onclick="location.href = '/userLogout';" id="logout">Log Out</button><br>
-	
-	<div>
-		<p>Pesquisar Profissional:</p>
-		<form action="#" th:action="testPerfil" method="post">
-			<label for="email">Email:</label><br>
-			<input type="text" name="email"><br>
-			<input type="submit" value="Pesquisar">
-		</form>
-	</div>
 
 </body>
 </html>
