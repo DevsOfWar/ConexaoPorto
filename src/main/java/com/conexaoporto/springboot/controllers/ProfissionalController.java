@@ -41,7 +41,7 @@ public class ProfissionalController {
 			@RequestParam(name= "senha") String senha,
 			Model model,
 			HttpSession session) {
-		if (email.isBlank() || senha.isBlank()) {
+		if (email.isEmpty() || senha.isEmpty()) {
 			model.addAttribute("erroDeAutenticacao", "E-mail ou senha inválidos.");
 			return "login";
 		}
