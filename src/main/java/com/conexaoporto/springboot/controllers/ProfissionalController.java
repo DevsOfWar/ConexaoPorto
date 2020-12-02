@@ -41,7 +41,11 @@ public class ProfissionalController {
 			@RequestParam(name= "senha") String senha,
 			Model model,
 			HttpSession session) {
-
+		if (email.isBlank() || senha.isBlank()) {
+			model.addAttribute("erroDeAutenticacao", "E-mail ou senha inválidos.");
+			return "login";
+		}
+		
 		Profissional usuario = profissionalRepo.findByEmail(email) != null ? profissionalRepo.findByEmail(email) : null;
 		if ((usuario != null) && usuario.getSenha().contentEquals(senha)) {
 			session.setAttribute("userId", usuario.getCodUsuario());
