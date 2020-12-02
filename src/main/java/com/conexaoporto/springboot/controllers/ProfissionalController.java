@@ -50,7 +50,7 @@ public class ProfissionalController {
 		if ((usuario != null) && usuario.getSenha().contentEquals(senha)) {
 			session.setAttribute("userId", usuario.getCodUsuario());
 			session.setAttribute("userEmail", usuario.getEmail());
-			session.setMaxInactiveInterval(60); // TODO: alterar para um numero maior quando terminar de testar
+			session.setMaxInactiveInterval(300); // TODO: alterar para um numero maior quando terminar de testar
 			return "redirect:/home";
 		} else {
 			model.addAttribute("erroDeAutenticacao", (usuario == null) ? "Esse e-mail não está cadastrado no sistema." : "Senha incorreta.");

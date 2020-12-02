@@ -1,16 +1,28 @@
 package com.conexaoporto.springboot.controllers;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.conexaoporto.springboot.model.entities.Profissional;
 import com.conexaoporto.springboot.model.entities.Usuario;
@@ -56,15 +68,28 @@ public class TestController {// Esse controller contêm exemplos relacionados a 
 	}
 
 	// EXEMPLO LISTAR DADOS (especifico)
-	@PostMapping("/testPerfil")
-	public String exibirDadosProfissional(@RequestParam(name = "email") String email, Model model) {// @RequestParam associa a variavel da barra de endereços ao parametro fornecido usando a tag name do html
-
-		model.addAttribute("usuario", profissionalRepo.findByEmail(email));
+	@GetMapping("/testPerfil")
+	public String exibirDadosProfissional(HttpSession session, Model model) {
+		
+		model.addAttribute("usuario", profissionalRepo.findById(Long.parseLong(session.getAttribute("auth").toString())));
 		return "test/perfil-profissional";
 	}
 
+	@GetMapping("/testPerfil/image/{userId}")
+	private void showImage(@PathVariable long userId, HttpServletResponse response) throws IOException {
+		
+		response.setContentType("image/jpeg");
+		Profissional profissional = profissionalRepo.findById(userId);
+		if (!(profissional.getFoto() == null)) {
+			InputStream is = new ByteArrayInputStream(profissional.getFoto());
+			IOUtils.copy(is, response.getOutputStream());
+		}
+		
+	}
+	
+	
 	@PostMapping("/testpreloadAtualizarDados") // Isso é um 'intermediario' para carregar os dados do usuario e retornar eles para a pagina certa
-	public String atualizarDadosProfissional2(@RequestParam(name = "codUsuario") long id, Model model) {
+	public String atualizarDadosProfissional2(@RequestParam(name = "codUsuario") long id, Model model) {// @RequestParam associa a variavel da barra de endereços ao parametro fornecido usando a tag name do html
 
 		model.addAttribute("usuario", profissionalRepo.findById(id));// Encontra o usuario baseado no id e salva as informações dele no model
 		return "test/atualizar-profissional";
@@ -77,11 +102,21 @@ public class TestController {// Esse controller contêm exemplos relacionados a 
 			@RequestParam(name = "senha") String senha, @RequestParam(name = "descricao") String descricao,
 			@RequestParam(name = "areaDeInteresse") String areaDeInteresse,
 			@RequestParam(name = "ocupacao") String ocupacao,
-			@RequestParam(name = "nivelDeEscolaridade") String nivelDeEscolaridade, Model model) {
+			@RequestParam(name = "nivelDeEscolaridade") String nivelDeEscolaridade,
+			@RequestParam(name= "foto") MultipartFile foto,
+			Model model) {
 		Profissional profissional = profissionalRepo.findById(id); // Encontra os dados do ususario usando o ID
 		// Atualiza os valores do objeto com os mais recente,
 		// se o valor informado estiver em branco ele mantem o valor anterior
 		profissional.setNome(!nome.isEmpty() ? nome : profissional.getNome());
+		if (!foto.isEmpty()) {
+			try {
+				profissional.setFoto(foto.getBytes());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		profissional.setSenha(!senha.isEmpty() ? senha : profissional.getSenha());
 		profissional.setTelefone(!telefone.isEmpty() ? telefone : profissional.getTelefone());
 		profissional.setDescricao(!descricao.isEmpty() ? descricao : profissional.getDescricao());
@@ -106,11 +141,11 @@ public class TestController {// Esse controller contêm exemplos relacionados a 
 		Usuario usuario = profissionalRepo.findByEmail(email) != null ? (Usuario) profissionalRepo.findByEmail(email) : null;
 		if ((usuario != null) && usuario.getSenha().contentEquals(senha)) {
 			session.setAttribute("auth", usuario.getCodUsuario()); // autenticacao usando variavel de sessao
-			session.setMaxInactiveInterval(60);// tempo de timeout da seção em segundos
+			session.setMaxInactiveInterval(300);// tempo de timeout da seção em segundos
 		} else {
-			return "test/home";
+			return "test/login-profissional";
 		}
-		return "test/login-profissional";
+		return "test/home";
 	}
 
 	@GetMapping("/userLogout")

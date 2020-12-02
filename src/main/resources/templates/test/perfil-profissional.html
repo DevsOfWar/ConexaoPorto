@@ -8,7 +8,8 @@
 	<div>
 	<p th:inline="text">Id: [[${usuario.codUsuario}]] </p>
 	<p th:inline="text">Nome: [[${usuario.nome}]] </p>
-	<p th:inline="text">Foto?: [[${usuario.foto}]] </p>
+	<img th:if="${usuario.foto} != null" th:src="@{'testPerfil/image/' + ${usuario.codUsuario}}"><br>
+	<img th:if="${usuario.foto} == null" th:src="@{/img/default-user.png}" width="100" height="100"><br>
 	<p th:inline="text">Email: [[${usuario.email}]] </p>
 	<p th:inline="text">Ocupação: [[${usuario.ocupacao}]] </p>
 	<p th:inline="text">Area de Interesse: [[${usuario.areaDeInteresse}]] </p>
@@ -17,7 +18,6 @@
 	<form method="post" th:action="testpreloadAtualizarDados" th:if="${session.auth} == ${usuario.codUsuario}">
 	<input type="hidden" name="codUsuario" th:value="${usuario.codUsuario}">
 	<button type="submit" value="Editar">Editar</button>
-	<div th:if="${session.auth} != null">[[${session.auth}]]</div>
 	</form>
 	</div>
 	<a href="/test">Retornar</a>

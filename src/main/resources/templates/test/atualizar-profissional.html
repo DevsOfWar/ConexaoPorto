@@ -6,11 +6,14 @@
 </head>
 <body>
 	<h1>Atualizar Perfil</h1>
-	<form action="#" th:action="testAtualizarProfissional" th:object="${usuario}" method="post">
+	<form action="#" th:action="testAtualizarProfissional" th:object="${usuario}" enctype="multipart/form-data" method="post">
 		<p th:inline="text">Codigo do Usuario: [[${usuario.codUsuario}]] </p>
 		<input type="hidden" name="codUsuario" th:field="*{codUsuario}">
 		<label for="nome">Nome:</label><br>
 		<input type="text" th:field="*{nome}"  name="nome"><br>
+		
+		<label for="foto">Foto:</label>
+		<input type="file" th:field="*{foto}" name="foto"><br>
 		
 		<label for="email">Email:</label><br>
 		<input type="text" th:field="*{email}" name="email"><br>
