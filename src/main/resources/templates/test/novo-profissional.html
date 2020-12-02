@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cadastro Profissional</title>
+</head>
+<body>
+	<h1>Cadastro para profissionais</h1>
+	<form action="#" th:action="testCadastroProfissional" th:object="${profissional}" method="post">
+		<label for="nome">Nome:</label><br>
+		<input type="text" th:field="*{nome}"  name="nome" value="Caio"><br>
+		<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+		
+		<label for="email">Email:</label><br>
+		<input type="text" th:field="*{email}" name="email" value="email@gmail.com"><br>
+		<p><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:text="asd"></span></p>
+		
+		<label for="senha">Senha:</label><br>
+		<input type="text" th:field="*{senha}" name="senha" value="1234"><br>
+		<span th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></span> 
+
+		<input type="submit" value="Enviar">
+	</form>
+</body>
+</html>

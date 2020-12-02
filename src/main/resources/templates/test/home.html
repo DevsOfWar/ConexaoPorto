@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="../static/js/login.js" th:src="@{/js/login.js}" th:inline="javascript"></script>
+<meta charset="UTF-8">
+<title>Index</title>
+</head>
+<body>
+	<img alt="Good news Everyone!" src=".../static/test/img/Good_news_everyone.gif" th:src="@{/test/img/Good_news_everyone.gif}"/>
+	<h2>It works!</h2>
+	<button onclick="location.href = '/testNovoProfissional';" class="submit-button">Cadastro Profissional</button>
+	<button onclick="location.href = '/testListarProfissionais';" class="submit-button">Listar Profissionais</button>
+	<button onclick="location.href = '/testLogin';" class="submit-button">Login Profissionais</button>
+	<button th:if="${session.auth} != null" onclick="location.href = '/userLogout';" id="logout">Log Out</button><br>
+	<div>
+		<p>Pesquisar Profissional:</p>
+		<form action="#" th:action="testPerfil" method="post">
+			<label for="email">Email:</label><br>
+			<input type="text" name="email"><br>
+			<input type="submit" value="Pesquisar">
+		</form>
+	</div>
+
+</body>
+</html>
