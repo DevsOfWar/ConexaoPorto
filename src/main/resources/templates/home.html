@@ -45,7 +45,7 @@
                     <div class="navbar-nav">
                         <a class="nav-item nav-links" id="sobre-menu" href="#sobre-area">Sobre nós</a>
                         <a th:if="${session.userId} == null" class="nav-item nav-links" id="cadastro-menu" href="/cadastro.html">Cadastre-se</a>
-                        <a th:if="${session.userId} != null" class="nav-item nav-links" id="oficinas-menu" href="#">Oficinas</a>
+                        <a th:if="${session.userId} != null" class="nav-item nav-links" id="oficinas-menu" href="/oficinas.html">Oficinas</a>
                         <a th:if="${session.userId} == null" class="nav-item nav-links" id="login-menu" href="/login.html">Login</a>
                         <a th:if="${session.userId} != null" class="nav-item nav-links" id="logout-menu" href="/logout">Logout</a>
                     </div>
