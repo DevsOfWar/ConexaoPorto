@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cadastro Oficinas</title>
+</head>
+<body th:onload="hide();if(document.getElementById('externa').checked){show()}">
+	<h1>Cadastro de Oficina</h1>
+	<form action="#" th:action="testCadastroOficina" method="post">
+		<label for="nome">Nome da Oficina:</label><br>
+		<input type="text" id="nome" name="nome"><br>
+
+		<label for= "local">Local</label>
+		<input type="radio" th:onclick="hide();" id="local" name="plataforma" value="local">
+		<label for= "profissional">Externa</label>
+		<input type="radio" th:onclick="show();" id="externa" name="plataforma" value="externa">
+		<label for="linkPlataforma" id="lableLinkPlataforma" >Link externo:</label>
+		<input type="text"  id="linkPlataforma" name="linkPlataforma"><br>
+
+		<label for="pontuacao">Pontuação:</label><br>
+		<input type="number" id="pontuacao" name="pontuacao"><br>
+		
+		<!-- abaixo itens da entidade Oficina -->
+		<label for="cargaHorarioa">Carga Horaria:</label><br>
+		<input type="number" id="cargaHoraria" name="cargaHoraria"><br>
+		
+		<label for="dataInicio">Data de Inicio:</label><br>
+		<input type="date" id="dataInicio" name="dataInicio"><br><br>
+		
+		<label for="dataTermino">Data de Encerramento:</label><br>
+		<input type="date" id="dataTermino" name="dataTermino"><br><br>
+		
+		<div th:if="${error} != null">[[${error}]]</div>
+		<input type="submit" value="Enviar"><br>
+	</form>
+	<a href="/testGerenciarOficinas">Retornar</a>
+		<script th:inline="javascript">
+			function hide(){
+				document.getElementById("lableLinkPlataforma").style.visibility = 'hidden';
+				document.getElementById("linkPlataforma").style.visibility = 'hidden';
+			}
+
+			function show() {
+				document.getElementById("lableLinkPlataforma").style.visibility = 'visible';
+				document.getElementById("linkPlataforma").style.visibility = 'visible';
+			}
+		</script>
+</body>
+</html>

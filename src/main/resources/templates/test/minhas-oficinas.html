@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Lista de Oficinas</title>
+</head>
+<body>
+<div th:switch="${oficinas}">
+	    <h2 th:case="null">Nenhuma Oficina encontrada!</h2>
+	        <div th:case="*">
+	            <h2>oficinas</h2>
+	            <table>
+	                <thead>
+	                    <tr>
+	                        <th>Nome da Oficina</th>
+	                        <th></th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                <tr th:each="oficina : ${oficinas}">
+	                     <td th:text="${oficina.nomeDoEvento}"></td>
+	                     <td><button th:onclick="location.href='/testAtualizarOficina/[[${oficina.codEvento}]]';">Editar</button></td>
+	                </tr>
+	            </tbody>
+	        </table>
+	    </div>      
+	    <p><a href="/testCadastroOficina">Adicionar nova oficina</a></p>
+	    <a href="/testGerenciarOficinas">Retornar</a>
+	</div>
+</body>
+</html>

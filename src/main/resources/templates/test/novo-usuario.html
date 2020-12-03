@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cadastro Profissional</title>
+</head>
+<body th:onload="hide();if(document.getElementById('empresa').checked){show()}">
+	<h1>Cadastro para profissionais</h1>
+	<form action="#" th:action="testCadastroUsuario" method="post">
+		<label for="nome">Nome:</label><br>
+		<input type="text" id="nome" name="nome"><br>
+		
+		<label for="email">Email:</label><br>
+		<input type="text" id="email" name="email"><br>
+		<div th:if="${emailError} != null">[[${emailError}]]</div>
+		
+		<label for="senha">Senha:</label><br>
+		<input type="text" id="senha" name="senha"><br>
+
+		<label for= "empresa">Empresa</label>
+		<input type="radio" th:onclick="show();" id="empresa" name="tipoUsuario" value= "Empresa">
+		<label for= "profissional">Profissional</label>
+		<input type="radio" th:onclick="hide();" id="profissional" name="tipoUsuario" value= "Profissional"><br>
+		
+		<label for="cnpj" id="labelCnpj" class="cnpj">CNPJ:</label>
+		<input type="text"  id="cnpj" name="cnpj" class="cnpj"><br>
+
+		<input type="submit" value="Enviar"><br>
+	</form>
+	<a href="/test">Retornar</a>
+	<script th:inline="javascript">
+			function hide(){
+				document.getElementById("labelCnpj").style.visibility = 'hidden';
+				document.getElementById("cnpj").style.visibility = 'hidden';
+			}
+
+			function show() {
+				document.getElementById("labelCnpj").style.visibility = 'visible';
+				document.getElementById("cnpj").style.visibility = 'visible';
+			}
+		</script>
+</body>
+</html>

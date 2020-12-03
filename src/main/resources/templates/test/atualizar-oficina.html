@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Atualiza Oficina</title>
+</head>
+<body>
+	<h1>Atualizar Oficina</h1>
+	<form action="#" th:action="testAtualizarOficina" th:object="${oficina}" enctype="multipart/form-data" method="post">
+		<p th:inline="text">Nome da Oficina [[${oficina.nomeDoEvento}]]</p>
+		<p th:inline="text">Nome do autor: [[${oficina.autor}]] </p>
+		
+		<label th:if="oficina.plataforma == 'externo'" for="linkDeAcesso">Link de Acesso:</label><br>
+		<input th:if="oficina.plataforma == 'externo'" type="text" id="linkDeAcesso" th:field="*{linkDeAcesso}"  name="linkDeAcesso"><br>
+		
+		<label for="pontuacao">Pontuacao:</label><br>
+		<input type="number" id="pontuacao" th:field="*{pontuacao}"  name="pontuacao"><br>
+		
+		<label for="cargaHoraria">Carga Horária:</label><br>
+		<input type="text" id="cargaHoraria" th:field="*{cargaHoraria}"  name="cargaHoraria"><br>
+		
+		<label for="dataInicio">Data de Início:</label><br>
+		<input type="date" id="dataInicio" th:field="*{dataInicio}"  name="dataInicio"><br>
+		
+		<label for="dataTermino">Data de Encerramento:</label><br>
+		<input type="date" id="dataTermino" th:field="*{dataTermino}"  name="dataTermino"><br>
+		
+		<label for="descricao">Descrição da Oficina:</label><br>
+		<textarea th:field="*{descricao}" id="descricao" name="descricao"></textarea><br>
+		
+		<label for="foto">Foto:</label>
+		<input type="file" th:field="*{fotoDeCapa}" name="foto"><br>
+		
+		
+
+		<input type="submit" value="Enviar">
+	</form>
+	<a href="/test">Retornar</a>
+</body>
+</html>

@@ -1,12 +1,10 @@
 package com.conexaoporto.springboot.controllers;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +22,7 @@ public class ProfissionalController {
 	@PostMapping("/CadastrarProfissional")
 	public String cadastro (@RequestParam(name= "nome") String nome,
 			@RequestParam(name="senha") String senha,
-			@RequestParam(name="email") @Valid String email,
+			@RequestParam(name="email") String email,
 			Model model)
 			 {
 		if (profissionalRepo.findByEmail(email) != null) {

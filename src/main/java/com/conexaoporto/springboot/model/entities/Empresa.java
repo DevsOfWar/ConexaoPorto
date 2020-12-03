@@ -27,11 +27,9 @@ public class Empresa extends Usuario{
 		super();
 	}
 
-	public Empresa(String nome, String email, String senha, String razaoSocial, String cnpj, String areaDeAtuacao) {
+	public Empresa(String nome, String email, String senha, String cnpj) {
 		super(nome, email, senha);
-		this.razaoSocial = razaoSocial;
 		this.cnpj = cnpj;
-		this.areaDeAtuacao = areaDeAtuacao;
 	}
 
 

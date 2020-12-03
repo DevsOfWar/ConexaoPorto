@@ -30,14 +30,6 @@ public class Oficina extends Evento {
 		super();
 	}
 
-	public Oficina(byte[] fotoDeCapa, String plataforma, String linkDeAcesso, int pontuacao, String descricao,
-			Date dataInicio, Date dataTermino, int cargaHoraria) {
-		super(fotoDeCapa, plataforma, linkDeAcesso, pontuacao, descricao);
-		this.dataInicio = dataInicio;
-		this.dataTermino = dataTermino;
-		this.cargaHoraria = cargaHoraria;
-	}
-
 	public Date getDataInicio() {
 		return dataInicio;
 	}

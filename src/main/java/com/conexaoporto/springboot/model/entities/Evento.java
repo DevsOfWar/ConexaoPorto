@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Positive;
 
-@Entity(name= "EVENTO")
+@Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Evento {
 	
@@ -21,6 +21,9 @@ public class Evento {
 	private long codEvento;
 	
 	private String autor;
+	
+	@Column(nullable = false, name="nome_do_evento")
+	private String nomeDoEvento;
 	
 	@Column(name="foto_de_capa")
 	private byte[] fotoDeCapa;
@@ -127,6 +130,14 @@ public class Evento {
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
+	}
+
+	public String getNomeDoEvento() {
+		return nomeDoEvento;
+	}
+
+	public void setNomeDoEvento(String nomeDoEvento) {
+		this.nomeDoEvento = nomeDoEvento;
 	}
 	
 	
