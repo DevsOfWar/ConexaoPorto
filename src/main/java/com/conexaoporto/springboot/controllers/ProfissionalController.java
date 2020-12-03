@@ -36,7 +36,7 @@ public class ProfissionalController {
 		return "redirect:/login";
 	}
 	
-	@PostMapping("login")
+	@PostMapping("loginUsuario")
 	public String login(@RequestParam(name= "email") String email,
 			@RequestParam(name= "senha") String senha,
 			Model model,
