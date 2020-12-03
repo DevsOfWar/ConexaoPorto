@@ -261,7 +261,7 @@ public class TestController {// Esse controller contêm exemplos relacionados a 
 	
 	@PostMapping("/testAtualizarOficina/testAtualizarOficina")
 	public String atualizarOficinas(@RequestParam(name ="descricao") String descricao,
-			@RequestParam(name ="foto", required = false) MultipartFile foto,
+			@RequestParam(name ="fotoDeCapa", required = false) MultipartFile foto,
 			@RequestParam(name ="linkDeAcesso", required = false) String linkDeAcesso,
 			@RequestParam(name ="cargaHoraria") int cargaHoraria,
 			@RequestParam(name ="pontuacao") int pontuacao,
@@ -285,7 +285,7 @@ public class TestController {// Esse controller contêm exemplos relacionados a 
 		oficina.setPontuacao(!(pontuacao <= 0) ? pontuacao : oficina.getPontuacao());
 		oficina.setDataInicio(dataInicio);
 		oficina.setDataTermino(dataTermino);
-		if (foto != null) {
+		if (!foto.isEmpty()) {
 			try {
 				oficina.setFotoDeCapa(foto.getBytes());
 			} catch (IOException e) {
@@ -296,6 +296,30 @@ public class TestController {// Esse controller contêm exemplos relacionados a 
 		
 		oficinaRepo.save(oficina);
 		return "redirect:/testMinhasOficinas";
+	}
+	
+	
+	@GetMapping("/testOficina/image/{oficinaId}")
+	private void getImageOficina(@PathVariable long oficinaId, HttpServletResponse response) throws IOException {
+		
+		response.setContentType("image/jpeg");
+		Oficina oficina = oficinaRepo.findById(oficinaId);
+		if (!(oficina.getFotoDeCapa() == null)) {
+			InputStream is = new ByteArrayInputStream(oficina.getFotoDeCapa());
+			IOUtils.copy(is, response.getOutputStream());
+		}
+		
+	}
+	
+	@GetMapping("/testListaOficinas")
+	public String listaOficinas(HttpSession session, Model model) {
+		if (!autenticado(session, "Profissional")) {
+			return "redirect:/test";
+		}
+		
+		
+		model.addAttribute("oficinas", oficinaRepo.findAll());
+		return "test/lista-oficinas";
 	}
 	
 	private boolean autenticado(HttpSession session, String tipo) {

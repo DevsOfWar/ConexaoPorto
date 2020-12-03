@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Positive;
 
@@ -25,6 +26,7 @@ public class Evento {
 	@Column(nullable = false, name="nome_do_evento")
 	private String nomeDoEvento;
 	
+	@Lob
 	@Column(name="foto_de_capa")
 	private byte[] fotoDeCapa;
 	
