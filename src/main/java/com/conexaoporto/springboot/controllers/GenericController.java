@@ -38,11 +38,8 @@ public class GenericController {
 		return "redirect:/home";
 	}
 	
-	@GetMapping(value= {"/oficinas.html", "/oficinas"})
-	public String oficinasRedirect(HttpSession session) {
-		if (session.getAttribute("userId") != null){
-			return "oficinas";
-		}
-		return "redirect:/home";
-	}
+	
+	
+	
+	
 }
