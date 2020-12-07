@@ -51,13 +51,13 @@
                 <div class="col-4">
                     <div class="card" style="width: 20rem; height: 27rem;">
                         <div class="card-header">
-                            <img class="card-img-top" src="../static/img/oficina1.jpg" th:src="@{/img/oficina1.jpg}"
+                            <img class="card-img-top" th:src="@{'/oficina/image/' + ${oficina.codEvento}}"
                                 alt="...">
                         </div>
                         <ul class="list-group">
-                            <li class="list-group-item">Nível iniciante</li>
-                            <li class="list-group-item">Duração</li>
-                            <li class="list-group-item">Pontos</li>
+                            <li class="list-group-item">Empresa: [[${oficina.autor}]]</li>
+                            <li class="list-group-item">Duração: [[${oficina.cargaHoraria}]]</li>
+                            <li class="list-group-item">Pontos: [[${oficina.pontuacao}]]</li>
                         </ul>
                         <div class="form-group text-center" style="padding-top: 30px;">
                             <button type="button" class="btn btn-outline-primary">Baixar Certificado</button>

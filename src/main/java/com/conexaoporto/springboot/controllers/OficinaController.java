@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.conexaoporto.springboot.model.entities.Oficina;
 import com.conexaoporto.springboot.model.helpers.Autenticacao;
+import com.conexaoporto.springboot.model.repositories.ConteudoRepository;
+import com.conexaoporto.springboot.model.repositories.ModuloRepository;
 import com.conexaoporto.springboot.model.repositories.OficinaRepository;
 
 @Controller
@@ -23,6 +25,10 @@ public class OficinaController {
 	
 	@Autowired
 	OficinaRepository oficinaRepo;
+	@Autowired
+	ModuloRepository moduloRepo;
+	@Autowired
+	ConteudoRepository conteudoRepo;
 	
 	@GetMapping("/oficina/capa/{oficinaId}")//busca a imagem de capa da oficina
 	private void getImageOficina(@PathVariable long oficinaId, HttpServletResponse response) throws IOException {
@@ -46,8 +52,23 @@ public class OficinaController {
 		return "oficinas";
 	}
 	
-	@GetMapping("/oficinaInside")
-	public String getOficinaInside(HttpSession session, Model model) {
+	@GetMapping("/oficina/image/{oficinaId}")
+	private void getImagemOficina(@PathVariable long oficinaId, HttpServletResponse response) throws IOException {
+		
+		response.setContentType("image/jpeg");
+		Oficina oficina = oficinaRepo.findById(oficinaId);
+		if (!(oficina.getFotoDeCapa() == null)) {
+			InputStream is = new ByteArrayInputStream(oficina.getFotoDeCapa());
+			IOUtils.copy(is, response.getOutputStream());
+		}
+		
+	}
+	
+	
+	@GetMapping("/oficinaInside/{idOficina}")
+	public String getOficinaInside(HttpSession session, Model model, @PathVariable long idOficina) {
+		
+		model.addAttribute("oficina", oficinaRepo.findById(idOficina));
 		return "/oficinaInside";
 	}
 	
