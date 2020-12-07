@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cadastro conteúdo</title>
+</head>
+<body>
+	<h1>Cadastro conteúdo</h1>
+	<form action="#" th:action="testNovoConteudo" method="post">
+		<label for="titulo">Titulo do conteúdo:</label><br>
+		<input type="text" id="titulo" name="titulo"><br>
+
+		<label for="link">Link:</label><br>
+		<input type="text" id="link" name="link"><br>
+
+		<label for="descricao">Descrição:</label><br>
+		<textarea id="descricao" name="descricao"></textarea><br>
+		
+		<input type="submit" value="Enviar"><br>
+	</form>
+	<a href="/testMinhasOficinas">Retornar</a>
+<div th:if="${conteudos} != null" th:switch="${conteudos}">
+<p>Conteúdos cadastrados:</p>
+<p th:each= "conteudo : ${conteudos}"> [[${conteudo.titulo}]] </p>
+</div>
+</body>
+</html>

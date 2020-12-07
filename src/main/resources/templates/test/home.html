@@ -13,8 +13,10 @@
 	<button th:if="${session.auth} == null" onclick="location.href = '/testLogin';">Login Profissionais</button>
 	<button th:if="${session.auth} == null" onclick="location.href = '/testLoginEmpresa';">Login Empresas</button>
 	<button th:if="${(session.auth != null) and session.tipoUsuario == 'Profissional'}" onclick="location.href = '/testPerfil';">Meu Perfil</button>
-	<button th:if="${(session.auth != null) and session.tipoUsuario == 'Empresa'}" onclick="location.href = '/testGerenciarOficinas';">Gerenciar Minhas Oficinas</button>
+	<button th:if="${(session.auth != null) and session.tipoUsuario == 'Empresa'}" onclick="location.href = '/testCadastroOficina';">Cadastrar Oficina</button>
+	<button th:if="${(session.auth != null) and session.tipoUsuario == 'Empresa'}" onclick="location.href = '/testMinhasOficinas';">Minhas Oficinas</button>
 	<button th:if="${(session.auth != null) and session.tipoUsuario == 'Profissional'}" onclick="location.href = '/testListaOficinas';">Oficinas</button>
+
 	<button th:if="${session.auth} != null" onclick="location.href = '/userLogout';" id="logout">Log Out</button><br>
 
 </body>

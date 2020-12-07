@@ -29,7 +29,7 @@ public class Modulo {
 	private Set<Conteudo> conteudos;
 
 	@ManyToOne
-	@JoinColumn(name = "cod_oficina", insertable = false, updatable = false)
+	@JoinColumn(name = "cod_oficina")
 	private Oficina oficina;
 	
 	public Modulo() {
@@ -37,11 +37,53 @@ public class Modulo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Modulo(String nomeModulo, String descricaoModulo) {
+	public Modulo(String nomeModulo, String descricaoModulo, Oficina oficina) {
 		super();
 		this.nomeModulo = nomeModulo;
 		this.descricaoModulo = descricaoModulo;
+		this.oficina = oficina;
 	}
+
+	public long getCodModulo() {
+		return codModulo;
+	}
+
+	public void setCodModulo(long codModulo) {
+		this.codModulo = codModulo;
+	}
+
+	public String getNomeModulo() {
+		return nomeModulo;
+	}
+
+	public void setNomeModulo(String nomeModulo) {
+		this.nomeModulo = nomeModulo;
+	}
+
+	public String getDescricaoModulo() {
+		return descricaoModulo;
+	}
+
+	public void setDescricaoModulo(String descricaoModulo) {
+		this.descricaoModulo = descricaoModulo;
+	}
+
+	public Set<Conteudo> getConteudos() {
+		return conteudos;
+	}
+
+	public void setConteudos(Set<Conteudo> conteudos) {
+		this.conteudos = conteudos;
+	}
+
+	public Oficina getOficina() {
+		return oficina;
+	}
+
+	public void setOficina(Oficina oficina) {
+		this.oficina = oficina;
+	}
+	
 	
 	
 }
