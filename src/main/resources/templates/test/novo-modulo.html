@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cadastro Modulo</title>
+</head>
+<body>
+	<h1>Cadastro Modulo</h1>
+	<form action="#" th:action="testNovoModuloOficina" method="post">
+		<label for="nome">Nome do Modulo:</label><br>
+		<input type="text" id="nome" name="nome"><br>
+
+		<label for="descricao">Descrição:</label><br>
+		<textarea id="descricao" name="descricao"></textarea><br>
+		
+		<input type="submit" value="Enviar"><br>
+	</form>
+	<a href="/testGerenciarOficinas">Retornar</a>
+
+</body>
+</html>

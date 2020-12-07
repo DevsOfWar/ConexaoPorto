@@ -8,6 +8,7 @@ import java.sql.Date;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 
@@ -20,11 +21,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.conexaoporto.springboot.model.entities.Conteudo;
 import com.conexaoporto.springboot.model.entities.Empresa;
 import com.conexaoporto.springboot.model.entities.Evento;
+import com.conexaoporto.springboot.model.entities.Modulo;
 import com.conexaoporto.springboot.model.entities.Oficina;
 import com.conexaoporto.springboot.model.entities.Profissional;
+import com.conexaoporto.springboot.model.repositories.ConteudoRepository;
 import com.conexaoporto.springboot.model.repositories.EmpresaRepository;
+import com.conexaoporto.springboot.model.repositories.ModuloRepository;
 import com.conexaoporto.springboot.model.repositories.OficinaRepository;
 import com.conexaoporto.springboot.model.repositories.ProfissionalRepository;
 import com.conexaoporto.springboot.model.repositories.UsuarioRepository;
@@ -39,6 +44,11 @@ public class TestController {// Esse controller contêm exemplos relacionados a 
 	UsuarioRepository usuarioRepo;
 	@Autowired
 	OficinaRepository oficinaRepo;
+	@Autowired
+	ModuloRepository moduloRepo;
+	@Autowired
+	ConteudoRepository conteudoRepo;
+	
 	
 	@GetMapping(value = "/test")
 	public String testRedirect() {
@@ -180,21 +190,11 @@ public class TestController {// Esse controller contêm exemplos relacionados a 
 		if ((usuario != null) && usuario.getSenha().contentEquals(senha)) {
 			session.setAttribute("auth", usuario.getCodUsuario()); // autenticacao usando variavel de sessao
 			session.setAttribute("tipoUsuario", "Empresa");
-			session.setMaxInactiveInterval(300);// tempo de timeout da seção em segundos
+			//session.setMaxInactiveInterval(300);// tempo de timeout da seção em segundos
 		} else {
 			return "test/login-empresa";
 		}
 		return "redirect:/test";
-	}
-	
-	@GetMapping("/testGerenciarOficinas")
-	public String gerenciarOficinas(HttpSession session, Model model) {
-
-		if (!autenticado(session, "Empresa")) {
-			return "redirect:/test";
-		}
-			
-		return "test/gerenciar-oficinas";
 	}
 	
 	@GetMapping("/testCadastroOficina")
@@ -244,6 +244,7 @@ public class TestController {// Esse controller contêm exemplos relacionados a 
 		}
 		
 		model.addAttribute("oficinas", oficinaRepo.findByUserId(Long.parseLong(session.getAttribute("auth").toString())));
+		session.removeAttribute("idOficina");
 		return "test/minhas-oficinas";
 	}
 	
@@ -255,7 +256,9 @@ public class TestController {// Esse controller contêm exemplos relacionados a 
 		}
 		
 		model.addAttribute("oficina", oficinaRepo.findById(idOficina));
+		model.addAttribute("modulos", moduloRepo.findByOficinaId(idOficina).spliterator().getExactSizeIfKnown() >= 1 ? moduloRepo.findByOficinaId(idOficina) : null);
 		session.setAttribute("idOficina", idOficina);
+		session.removeAttribute("idModulo");
 		return "test/atualizar-oficina";
 	}
 	
@@ -298,7 +301,6 @@ public class TestController {// Esse controller contêm exemplos relacionados a 
 		return "redirect:/testMinhasOficinas";
 	}
 	
-	
 	@GetMapping("/testOficina/image/{oficinaId}")
 	private void getImageOficina(@PathVariable long oficinaId, HttpServletResponse response) throws IOException {
 		
@@ -328,6 +330,51 @@ public class TestController {// Esse controller contêm exemplos relacionados a 
 		} else {
 			return true;
 		}
+	}
+	
+	@GetMapping("/testNovoModuloOficina")
+	private String novoModulo(HttpSession session) {
+		if (!autenticado(session, "Empresa")) {
+			return "redirect:/test";
+		}
+		return "test/novo-modulo";
+	}
+	
+	@PostMapping("/testNovoModuloOficina")
+	public String novoModulo(@RequestParam(name= "nome") String nome,
+			@RequestParam(name= "descricao") String descricao, HttpSession session) {
+		
+		long idOficina = Long.parseLong(session.getAttribute("idOficina").toString());
+		Oficina oficina = oficinaRepo.findById(idOficina);
+		Modulo modulo = new Modulo(nome, descricao, oficina);
+		moduloRepo.save(modulo);
+		return "redirect:/testMinhasOficinas";
+	}
+	
+	@GetMapping("/testAtualizarOficina/testNovoConteudo")
+	public String novoConteudo(HttpSession session, Model model, @RequestParam(name= "modulo") String idModulo) {
+		if (!autenticado(session, "Empresa")) {
+			return "redirect:/test";
+		}
+		
+		session.setAttribute("idModulo", idModulo);
+		model.addAttribute("conteudos", conteudoRepo.findAllByModulo(Long.parseLong(idModulo)));
+		return "test/novo-conteudo";
+	}
+	
+	@PostMapping("/testAtualizarOficina/testNovoConteudo")
+	public String novoConteudo(@RequestParam(name= "link") String link,
+			@RequestParam(name= "descricao") String descricao,
+			@RequestParam(name= "titulo") String titulo,
+			HttpSession session,
+			Model model) {
+		
+		long idModulo = Long.parseLong(session.getAttribute("idModulo").toString());
+		Modulo modulo = moduloRepo.findById(idModulo);
+		Conteudo conteudo = new Conteudo(link, descricao, titulo, modulo);
+		
+		conteudoRepo.save(conteudo);
+		return "redirect:/testAtualizarOficina/"+session.getAttribute("idOficina").toString();
 	}
 	
 	

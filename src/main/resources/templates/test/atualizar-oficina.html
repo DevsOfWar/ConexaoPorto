@@ -35,6 +35,14 @@
 
 		<input type="submit" value="Enviar">
 	</form>
+	<form th:if="${modulos} != null" th:action="testNovoConteudo" th:method="GET">
+		<label for="modulo">Gerenciar Modulos:</label>
+		<select th:switch="${modulos}" name="modulo" id="modulo">
+			<option th:each="modulo : ${modulos}" th:value="${modulo.codModulo}">[[${modulo.nomeModulo}]]</option>
+		</select>
+		<input type="submit" value="Novo conteúdo">
+	</form>
+	<button onclick="location.href='/testNovoModuloOficina'">Novo Modulo</button><br>
 	<a href="/test">Retornar</a>
 </body>
 </html>

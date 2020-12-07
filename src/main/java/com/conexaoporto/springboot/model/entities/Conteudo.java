@@ -20,8 +20,10 @@ public class Conteudo {
 	
 	private String descricao;
 	
+	private String titulo;
+	
 	@ManyToOne
-	@JoinColumn(name= "cod_modulo", insertable = false, updatable = false)
+	@JoinColumn(name= "cod_modulo")
 	private Modulo modulo;
 
 	public Conteudo() {
@@ -29,10 +31,12 @@ public class Conteudo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Conteudo(String linkVideo, String descricao) {
+	public Conteudo(String linkVideo, String descricao, String titulo, Modulo modulo) {
 		super();
 		this.linkVideo = linkVideo;
 		this.descricao = descricao;
+		this.titulo = titulo;
+		this.modulo = modulo;
 	}
 
 	public long getCodConteudo() {
@@ -65,6 +69,14 @@ public class Conteudo {
 
 	public void setModulo(Modulo modulo) {
 		this.modulo = modulo;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 	
 	
