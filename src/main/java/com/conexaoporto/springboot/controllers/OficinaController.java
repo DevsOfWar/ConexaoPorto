@@ -69,7 +69,7 @@ public class OficinaController {
 	public String getOficinaInside(HttpSession session, Model model, @PathVariable long idOficina) {
 		
 		model.addAttribute("oficina", oficinaRepo.findById(idOficina));
-		return "/oficinaInside";
+		return "oficinaInside";
 	}
 	
 }
