@@ -46,5 +46,9 @@ public class OficinaController {
 		return "oficinas";
 	}
 	
+	@GetMapping("/oficinaInside")
+	public String getOficinaInside(HttpSession session, Model model) {
+		return "/oficinaInside";
+	}
 	
 }

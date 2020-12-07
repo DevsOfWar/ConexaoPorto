@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
- <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oficinas</title>
@@ -15,9 +15,9 @@
 
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/5613e866c1.js" crossorigin="anonymous"></script>
- </head>
+</head>
 
- <body>
+<body>
     <header>
         <div class="container" id="nav-container">
             <nav class="navbar navbar-expand-lg fixed-top">
@@ -44,25 +44,47 @@
             </nav>
         </div>
     </header>
-
+    <!--Área do conteúdo da oficina-->
     <main>
-        <div class="container">
-            <div class="row justify-content-center" style="padding-top: 50px;">
-                <div class="card-group" th:switch=${oficinas}>
-                    <div th:each="oficina : ${oficinas}" class="card m-3" style="width: 18rem;">
-                        <img th:if="${oficina.fotoDeCapa} != null"
-                            th:src="@{'testOficina/image/' + ${oficina.codEvento}}" class="card-img-top" alt="...">
-                        <img th:if="${oficina.fotoDeCapa} == null" th:src="@{/img/default-oficina.jpg}"
-                            class="card-img-top" alt="Sem imagem">
-                        <div class="card-body">
-                            <h5 class="card-title">[[${oficina.nomeDoEvento}]]</h5>
-                            <p class="card-text">[[${oficina.descricao}]]</p>
-                            <a href="/oficinaInside" class="btn btn-primary">Acesse agora</a>
+        <div class="container-fluid" style="padding-top: 80px;">
+            <div class="row">
+                <div class="col-4">
+                    <div class="card" style="width: 20rem; height: 27rem;">
+                        <div class="card-header">
+                            <img class="card-img-top" src="../static/img/oficina1.jpg" th:src="@{/img/oficina1.jpg}"
+                                alt="...">
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">Nível iniciante</li>
+                            <li class="list-group-item">Duração</li>
+                            <li class="list-group-item">Pontos</li>
+                        </ul>
+                        <div class="form-group text-center" style="padding-top: 30px;">
+                            <button type="button" class="btn btn-outline-primary">Baixar Certificado</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-6">
+                        </div>
+                        <div class="col-6">
+                            <iframe width="350" height="200" src="https://www.youtube.com/embed/Wo8QMwywTXI"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
- </body>
- </html>
+
+
+
+
+
+</body>
+
+</html>
