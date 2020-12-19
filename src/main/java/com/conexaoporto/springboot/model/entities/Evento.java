@@ -39,7 +39,7 @@ public class Evento {
 	@Positive( message = "Pontuação deve ser um valor positivo") //Verificar se isso funciona aqui ou só no controller
 	private int pontuacao;
 	
-	@Column(nullable = false, columnDefinition = "bit default 0")
+	@Column(nullable = false, columnDefinition = "boolean default 'false'")
 	private boolean situacao;
 	
 	

@@ -34,7 +34,7 @@ public class Usuario {
 	@Lob
 	private byte[] foto;
 	
-	@Column(nullable = false, columnDefinition = "bit default 0")
+	@Column(nullable = false, columnDefinition = "boolean default 'false'")
 	private boolean status;
 	
 	private String descricao;

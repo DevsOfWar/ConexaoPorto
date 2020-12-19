@@ -49,7 +49,7 @@ public class ProfissionalController {
 			session.setAttribute("userId", usuario.getCodUsuario()); //inicia a seção e preenche e adiciona a variavel userId tendo como valor o código do usuário
 			session.setAttribute("userEmail", usuario.getEmail()); //adiciona o email do usuário a seção
 			session.setAttribute("tipoUsuario", "Profissional"); //adiciona o tipo do usuário (Profissional ou Empresa) a seção
-			//session.setMaxInactiveInterval(300); //Tempo de inatividade maximo para encerrar a seção (em segundos) TODO: ao termino de testes aumentar o valor
+			session.setMaxInactiveInterval(900); //Tempo de inatividade maximo para encerrar a seção (em segundos)
 			return "redirect:/home"; //no login bem sucedido retorna o usuário para a pagina principal
 		} else {
 			model.addAttribute("erroDeAutenticacao", (usuario == null) ? "Esse e-mail não está cadastrado no sistema." : "Senha incorreta."); //retorna mensagem de erro caso o email ou a senha fornecidas estejam erradas

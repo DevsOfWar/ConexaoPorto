@@ -67,7 +67,9 @@ public class OficinaController {
 	
 	@GetMapping("/oficinaInside/{idOficina}")
 	public String getOficinaInside(HttpSession session, Model model, @PathVariable long idOficina) {
-		
+		if (!Autenticacao.autenticado(session, "Profissional")) {
+			return "redirect:/home";
+		}
 		model.addAttribute("oficina", oficinaRepo.findById(idOficina));
 		return "oficinaInside";
 	}
