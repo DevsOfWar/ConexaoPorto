@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
+
 @Controller
 @RequestMapping
 public class GenericController {
@@ -18,7 +19,7 @@ public class GenericController {
 	
 	@GetMapping(value= {"/login.html", "login"})
 	public String loginRedirect(HttpSession session) {
-		if (session.getAttribute("userId") != null) {
+		if (session.getAttribute("userId") != null) {//caso já exista a variavel de sessão 'userId', ou seja a pessoa já fez login, não permite que ele abra a pagina de cadastro
 			return "redirect:/home";
 		}
 		return "login";
@@ -26,7 +27,7 @@ public class GenericController {
 	
 	@GetMapping(value= {"/cadastro.html", "/cadastro"})
 	public String cadastroRedirect(HttpSession session) {
-		if (session.getAttribute("userId") != null) {
+		if (session.getAttribute("userId") != null) {//caso já exista a variavel de sessão 'userId', ou seja a pessoa já fez login, não permite que ele abra a pagina de cadastro
 			return "redirect:/home";
 		}
 		return "cadastro";
@@ -34,7 +35,7 @@ public class GenericController {
 
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
-		session.invalidate();
+		session.invalidate(); //encerra a sessão
 		return "redirect:/home";
 	}
 	

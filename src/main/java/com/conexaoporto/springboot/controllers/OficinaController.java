@@ -30,6 +30,9 @@ public class OficinaController {
 	@Autowired
 	ConteudoRepository conteudoRepo;
 	
+	
+	//TODO: ISSO APARENTEMENTE É REDUNDANTE, TESTAR E REMOVER SE NECESSARIO
+	//O METODO getImagemOficina É O QUE JÁ É USADO NO CÓDIGO DA PAGINA (oficinas e oficinaInside)
 	@GetMapping("/oficina/capa/{oficinaId}")//busca a imagem de capa da oficina
 	private void getImageOficina(@PathVariable long oficinaId, HttpServletResponse response) throws IOException {
 		
@@ -44,15 +47,15 @@ public class OficinaController {
 	
 	@GetMapping({"/oficinas", "/oficinas.html"})
 	public String listaOficinas(HttpSession session, Model model) {
-		if (!Autenticacao.autenticado(session, "Profissional")) {
+		if (!Autenticacao.autenticado(session, "Profissional")) {//so permite acesso se o usuario for do tipo 'Profissional'
 			return "redirect:/home";
 		}
 		
-		model.addAttribute("oficinas", oficinaRepo.findAll());
+		model.addAttribute("oficinas", oficinaRepo.findAll()); //procura todas as oficinas no banco e manda elas para a pagina
 		return "oficinas";
 	}
 	
-	@GetMapping("/oficina/image/{oficinaId}")
+	@GetMapping("/oficina/image/{oficinaId}") //busca a imagem de capa da oficina
 	private void getImagemOficina(@PathVariable long oficinaId, HttpServletResponse response) throws IOException {
 		
 		response.setContentType("image/jpeg");
@@ -65,7 +68,7 @@ public class OficinaController {
 	}
 	
 	
-	@GetMapping("/oficinaInside/{idOficina}")
+	@GetMapping("/oficinaInside/{idOficina}")//busca dados da oficina com o id informado
 	public String getOficinaInside(HttpSession session, Model model, @PathVariable long idOficina) {
 		if (!Autenticacao.autenticado(session, "Profissional")) {
 			return "redirect:/home";

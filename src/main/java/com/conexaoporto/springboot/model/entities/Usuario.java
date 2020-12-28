@@ -28,7 +28,7 @@ public class Usuario {
 	@Column(length = 12)
 	private String telefone;
 	
-	@Column(nullable = false, length = 36)
+	@Column(nullable = false)
 	private String senha;
 	
 	@Lob
@@ -42,7 +42,7 @@ public class Usuario {
 	public Usuario() {
 		
 	}
-	
+
 	public Usuario(String nome, String email, String senha) {
 		super();
 		this.nome = nome;
@@ -50,8 +50,7 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-
-
+	
 	public long getCodUsuario() {
 		return codUsuario;
 	}
@@ -107,11 +106,11 @@ public class Usuario {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-
+	
 	public String getDescricao() {
 		return descricao;
 	}
-
+	
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
